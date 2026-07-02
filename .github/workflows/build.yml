@@ -21,7 +21,7 @@ jobs:
 
       - name: Build nice_nano_v2 dongle
         run: >
-          west build -s zmk/app -b nice_nano_v2
+          west build -b nice_nano_v2
           --build-dir build/nice_nano_v2_totem_dongle
           -- -DSHIELD="totem_dongle dongle_display"
           -DCONFIG_ZMK_STUDIO=y
@@ -29,13 +29,13 @@ jobs:
 
       - name: Build seeeduino_xiao_ble left
         run: >
-          west build -s zmk/app -b seeeduino_xiao_ble
+          west build -b seeeduino_xiao_ble
           --build-dir build/seeeduino_xiao_ble_totem_left
           -- -DSHIELD="totem_left"
 
       - name: Build seeeduino_xiao_ble right
         run: >
-          west build -s zmk/app -b seeeduino_xiao_ble
+          west build -b seeeduino_xiao_ble
           --build-dir build/seeeduino_xiao_ble_totem_right
           -- -DSHIELD="totem_right"
 
