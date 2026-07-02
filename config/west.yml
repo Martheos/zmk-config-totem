@@ -31,4 +31,4 @@ manifest:
       remote: englmaxi
       revision: main
   self:
-    path: .
+    path: config
