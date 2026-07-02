@@ -19,24 +19,24 @@ jobs:
       - name: West Zephyr Export
         run: west zephyr-export
 
-      - name: Build seeeduino_xiao_ble dongle
+      - name: Build xiao_ble dongle
         run: >
-          west build -s zmk/app -b seeeduino_xiao_ble
-          --build-dir build/seeeduino_xiao_ble_totem_dongle
+          west build -s zmk/app -b xiao_ble
+          --build-dir build/xiao_ble_totem_dongle
           -- -DSHIELD="totem_dongle dongle_display"
           -DCONFIG_ZMK_STUDIO=y
           -DZMK_SNIPPET="studio-rpc-usb-uart"
 
-      - name: Build seeeduino_xiao_ble left
+      - name: Build xiao_ble left
         run: >
-          west build -s zmk/app -b seeeduino_xiao_ble
-          --build-dir build/seeeduino_xiao_ble_totem_left
+          west build -s zmk/app -b xiao_ble
+          --build-dir build/xiao_ble_totem_left
           -- -DSHIELD="totem_left"
 
-      - name: Build seeeduino_xiao_ble right
+      - name: Build xiao_ble right
         run: >
-          west build -s zmk/app -b seeeduino_xiao_ble
-          --build-dir build/seeeduino_xiao_ble_totem_right
+          west build -s zmk/app -b xiao_ble
+          --build-dir build/xiao_ble_totem_right
           -- -DSHIELD="totem_right"
 
       - name: Collect firmware
