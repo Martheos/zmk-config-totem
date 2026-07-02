@@ -3,10 +3,9 @@ id: totem
 name: TOTEM
 type: shield
 url: https://github.com/GEIGEIGEIST/TOTEM
-requires: [seeeduino_xiao_ble, pro_micro]
+requires: [seeeduino_xiao_ble]
 features:
   - keys
 siblings:
-  - totem_dongle
   - totem_left
   - totem_right
