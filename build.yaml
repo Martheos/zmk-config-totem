@@ -1,7 +1,6 @@
 include:
   - board: xiao_ble
-    shield: totem_dongle dongle_display
-    snippet: studio-rpc-usb-uart
+    shield: totem_dongle
     cmake-args: -DCONFIG_ZMK_STUDIO=y
   - board: xiao_ble
     shield: totem_left
