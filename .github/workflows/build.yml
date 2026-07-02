@@ -42,13 +42,20 @@ jobs:
       - name: Collect firmware
         run: |
           mkdir -p artifacts
+          echo "=== Build directories ==="
+          ls -la build/
           for dir in build/*/; do
             name=$(basename "$dir")
+            echo "Checking $dir ..."
             if [ -f "$dir/zmk.uf2" ]; then
               cp "$dir/zmk.uf2" "artifacts/${name}.uf2"
+              echo "  Copied ${name}.uf2"
+            else
+              echo "  No zmk.uf2 found"
             fi
             if [ -f "$dir/zmk.hex" ]; then
               cp "$dir/zmk.hex" "artifacts/${name}.hex"
+              echo "  Copied ${name}.hex"
             fi
           done
           echo "=== Firmware files ==="
