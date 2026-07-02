@@ -1,5 +1,55 @@
-on: [pull_request, workflow_dispatch]
+name: Build ZMK Firmware
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk:stable
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: West Init
+        run: west init -l config
+
+      - name: West Update
+        run: west update -o --depth=1
+
+      - name: West Zephyr Export
+        run: west zephyr-export
+
+      - name: Build nice_nano_v2 dongle
+        run: >
+          west build -s config -b nice_nano_v2
+          --build-dir build/nice_nano_v2_totem_dongle
+          -- -DSHIELD="totem_dongle dongle_display"
+          -DCONFIG_ZMK_STUDIO=y
+          -DZMK_SNIPPET="studio-rpc-usb-uart"
+
+      - name: Build seeeduino_xiao_ble left
+        run: >
+          west build -s config -b seeeduino_xiao_ble
+          --build-dir build/seeeduino_xiao_ble_totem_left
+          -- -DSHIELD="totem_left"
+
+      - name: Build seeeduino_xiao_ble right
+        run: >
+          west build -s config -b seeeduino_xiao_ble
+          --build-dir build/seeeduino_xiao_ble_totem_right
+          -- -DSHIELD="totem_right"
+
+      - name: Collect firmware
+        run: |
+          mkdir -p artifacts
+          find build -name '*.uf2' -exec cp {} artifacts/ \;
+          find build -name '*.hex' -exec cp {} artifacts/ \;
+          echo "=== Firmware files ==="
+          ls -la artifacts/
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: zmk-firmware
+          path: artifacts/
+          retention-days: 14
