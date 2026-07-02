@@ -47,14 +47,14 @@ jobs:
           for dir in build/*/; do
             name=$(basename "$dir")
             echo "Checking $dir ..."
-            if [ -f "$dir/zmk.uf2" ]; then
-              cp "$dir/zmk.uf2" "artifacts/${name}.uf2"
+            if [ -f "$dir/zephyr/zmk.uf2" ]; then
+              cp "$dir/zephyr/zmk.uf2" "artifacts/${name}.uf2"
               echo "  Copied ${name}.uf2"
             else
-              echo "  No zmk.uf2 found"
+              echo "  No zmk.uf2 found in zephyr/"
             fi
-            if [ -f "$dir/zmk.hex" ]; then
-              cp "$dir/zmk.hex" "artifacts/${name}.hex"
+            if [ -f "$dir/zephyr/zmk.hex" ]; then
+              cp "$dir/zephyr/zmk.hex" "artifacts/${name}.hex"
               echo "  Copied ${name}.hex"
             fi
           done
