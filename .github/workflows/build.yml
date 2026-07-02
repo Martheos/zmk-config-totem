@@ -19,10 +19,10 @@ jobs:
       - name: West Zephyr Export
         run: west zephyr-export
 
-      - name: Build nice_nano_v2 dongle
+      - name: Build nice_nano dongle
         run: >
-          west build -b nice_nano_v2
-          --build-dir build/nice_nano_v2_totem_dongle
+          west build -b nice_nano
+          --build-dir build/nice_nano_totem_dongle
           -- -DSHIELD="totem_dongle dongle_display"
           -DCONFIG_ZMK_STUDIO=y
           -DZMK_SNIPPET="studio-rpc-usb-uart"
